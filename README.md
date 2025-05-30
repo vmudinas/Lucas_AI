@@ -223,18 +223,22 @@ describe('Connect Four Win Detection', () => {
 
 ## Deployment
 
-**Current Status**: No CI/CD pipeline is currently configured.
+**Current Status**: CI/CD pipeline is configured and active.
 
-**Planned Deployment Strategy**:
+**Live Application**: [https://vmudinas.github.io/Lucas_AI/](https://vmudinas.github.io/Lucas_AI/)
 
 ### GitHub Pages CI/CD
 
+The application is automatically deployed to GitHub Pages using the following setup:
+
 1. **Build Process**: Automated builds triggered on push to main branch
 2. **Static Hosting**: Deploy to GitHub Pages for free hosting
-3. **Custom Domain**: Optional custom domain configuration
+3. **Quality Checks**: ESLint validation before deployment
 4. **Automatic Updates**: New deployments on every merged pull request
 
-### Proposed GitHub Actions Workflow
+### GitHub Actions Workflow
+
+The current deployment workflow (`.github/workflows/deploy.yml`) provides:
 
 ```yaml
 # .github/workflows/deploy.yml
@@ -247,24 +251,35 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18'
-      - run: npm install
-      - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v3
+          cache: 'npm'
+      - name: Install Dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
 ```
 
-This setup would provide:
+This setup provides:
 - Automatic deployment on code changes
-- Build validation before deployment  
+- Build validation and linting before deployment  
+- Proper permissions for GitHub Pages deployment
+- Efficient caching for faster builds
 - Rollback capability if deployments fail
-- Preview deployments for pull requests
 
 ## Development Workflow
 
