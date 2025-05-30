@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   root: '.',
   publicDir: 'public',
+  base: process.env.NODE_ENV === 'production' ? '/Lucas_AI/' : '/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets'
