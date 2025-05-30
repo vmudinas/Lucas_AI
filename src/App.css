@@ -53,7 +53,7 @@
   flex-grow: 1;
 }
 
-.home-page, .about-page {
+.home-page, .about-page, .connect-four-page {
   max-width: 800px;
   margin: 0 auto;
 }

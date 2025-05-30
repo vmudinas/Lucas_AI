@@ -1,0 +1,39 @@
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+  padding: 1rem;
+}
+
+.landing-page h1 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .landing-page h1 {
+    font-size: 2rem;
+  }
+}
+
+.cta-button {
+  margin-top: 2rem;
+}
+
+.connect-four-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background-color: #646cff;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.connect-four-button:hover {
+  background-color: #535bf2;
+}
