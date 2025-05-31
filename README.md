@@ -255,6 +255,9 @@ jobs:
       contents: read
       pages: write
       id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -267,17 +270,25 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          enablement: true
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 ```
 
 This setup provides:
 - Automatic deployment on code changes
 - Build validation and linting before deployment  
 - Proper permissions for GitHub Pages deployment
+- Modern GitHub Actions deployment with artifact uploads
+- Automatic Pages enablement for repository configuration
 - Efficient caching for faster builds
 - Rollback capability if deployments fail
 
