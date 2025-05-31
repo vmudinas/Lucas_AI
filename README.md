@@ -272,8 +272,6 @@ jobs:
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        with:
-          enablement: true
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -288,9 +286,10 @@ This setup provides:
 - Build validation and linting before deployment  
 - Proper permissions for GitHub Pages deployment
 - Modern GitHub Actions deployment with artifact uploads
-- Automatic Pages enablement for repository configuration
 - Efficient caching for faster builds
 - Rollback capability if deployments fail
+
+**Note**: GitHub Pages must be manually enabled in repository settings with "GitHub Actions" as the source for the deployment to work.
 
 ## Development Workflow
 
